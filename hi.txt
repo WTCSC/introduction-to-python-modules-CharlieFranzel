@@ -1,0 +1,44 @@
+import argparse, text_utils
+parser = argparse.ArgumentParser()
+parser.add_argument('filename', type=str, help="The name of the file")
+args = parser.parse_args()
+
+def count_lines(filename):
+  file = open(filename, 'r') 
+  lines = file.readlines()     
+  linelist = []                
+  for line in lines:
+    linelist.append((line))    
+  file.close()                 
+  x = (int(len(linelist)))
+  return x   
+
+def count_words(filename):
+    number_of_words = 0
+    file = open(filename, 'r')
+    data = file.read()
+    lines = data.split()
+    number_of_words += len(lines)
+    file.close()
+    return number_of_words
+
+def word_average(filename):
+   average = count_words(filename)/count_lines(filename)
+   return average
+
+def count_sentences(filename):
+    file = open(filename, 'r')
+    lines= list(file)
+    file_contents = file.read()
+    file.close()
+    words_all = 0
+    for line in lines:
+        words_all = words_all + len(line.split())
+    full_stops = 0
+    for stop in lines:
+        full_stops = full_stops + len(stop.split('.'))
+    return full_stops
+
+if __name__ == '__main__':
+   print(f"Average words per line: " + str(word_average(args.filename)))
+   print(count_sentences(args.filename))
